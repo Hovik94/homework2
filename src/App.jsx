@@ -26,7 +26,15 @@ function App() {
     }
   }
 
-  const countDown = prod => {
+  const quantityUp = prod => {
+    const result = basket.find(x => x.id == prod.id)
+    if (result)
+      setBasket(basket.map(elm =>
+        elm.id == prod.id ? { ...elm, count: elm.count + 1 } : elm
+      ))
+  }
+
+  const quantityDown = prod => {
     const result = basket.find(x => x.id == prod.id)
     if (result) {
       setBasket(basket.map(elm =>
@@ -35,13 +43,6 @@ function App() {
     }
   }
 
-  const quantityUp = prod => {
-    const result = basket.find(x => x.id == prod.id)
-    if (result)
-      setBasket(basket.map(elm =>
-        elm.id == prod.id ? { ...elm, count: elm.count + 1 } : elm
-      ))
-  }
 
   const deleteItem = prod => {
     const result = basket.find(x => x.id == prod.id)
@@ -51,7 +52,7 @@ function App() {
       ))
   }
 
-  
+
   return <>
     <h1>Online shop</h1>
     <div className='content'>
@@ -90,7 +91,7 @@ function App() {
                 <td>{item.count * item.price}</td>
                 <td>
                   <button onClick={() => quantityUp(item)}>+</button>
-                  <button onClick={() => countDown(item)}>-</button>
+                  <button onClick={() => quantityDown(item)}>-</button>
                   <button onClick={() => deleteItem(item)}>x</button>
                 </td>
               </tr>)
